@@ -18,8 +18,9 @@ vector_s = FAISS.load_local("fed_minutes_vector_store", embeddings)
 
 # --------------------------Define the prompt--------------------------#
 prompt_template = """You are a research analyst at a federal reserve bank and you are trying to answer questions or 
-provide colour on statements. Use the following pieces of context to answer the question at the end. Explain the 
-rationale behind your answer. If you don't have all the elements to answer the query, say it explicitly.
+provide answers to queries about meetings of the Federal Open Market Committee. Use the following pieces of context to
+ answer the question at the end, giving special attention to economic, cultural, financial, or political developments.
+  If you don't have all the elements to answer the query, say it explicitly.
 
 {context}
 
@@ -29,7 +30,7 @@ PROMPT = PromptTemplate(
     template=prompt_template, input_variables=["context", "question"]
 )
 # --------------------------Define the QA model from the chain--------------------------#
-ask_me_about_fed_stuff = RetrievalQA.from_chain_type(llm=ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.0),
+ask_me_about_fed_stuff = RetrievalQA.from_chain_type(llm=ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0.1),
                                                      chain_type="stuff",
                                                      retriever=vector_s.as_retriever(search_kwargs={"k": 7}),
                                                      return_source_documents=True,
@@ -41,6 +42,5 @@ def get_chain(query):
 
 
 if __name__ == '__main__':
-    demo = gr.Interface(fn=get_chain, inputs='text', description='Query the public database in FRED from 1913-2023',
-                        examples=[['What is the rationale behind the answer to the question: What is the rationale behind the answer to the question:']], outputs='markdown', title='Query the FOMC minutes')
+    demo = gr.Interface(fn=get_chain, inputs='text', description='Query the public database in FRED from 1913-2023', outputs='markdown', title='Query the FOMC minutes')
     demo.launch()
