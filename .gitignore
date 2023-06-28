@@ -1,7 +1,7 @@
 *
 !.gitignore
 !gradio_app.py
-!CreateAndLoadVectorStore.py
+!VectorStore.py
 !QAoverFedMinutesHistory.ipynb
 !Build_Document_Store.ipynb
 !License
