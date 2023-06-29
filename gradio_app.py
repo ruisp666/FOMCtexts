@@ -12,10 +12,9 @@ import json
 from FOMCTexts.prompts import PROMPT_EXTRACT_DATE, PROMPT_FED_ANALYST
 from FOMCTexts.filterminutes import search_with_filter
 
-# ToDo:
-# - Add a button to reset the date parameters.
-# - Allow for comparison between two dates.
-# - Allow for aggregations.
+# ToDo: Default to the latest date.
+# ToDo: Allow for comparison between two dates.
+# ToDo: Allow for aggregations.
 
 # --------------------------Load environment variables--------------------------#
 _ = load_dotenv(find_dotenv('.env.rtf'))
